@@ -6,7 +6,6 @@
 // @author       You
 // @match        https://habr.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=habr.com
-// @grant           property:settings
 // @grant           GM_getValue
 // @grant           GM_setValue
 // @grant           GM_deleteValue
@@ -22,7 +21,7 @@
 // @grant           GM_openInTab
 // @grant           GM_registerMenuCommand
 // ==/UserScript==
-(()=>{
+
 const timeout = 10;
 const messages = {
     hide: {
@@ -136,4 +135,4 @@ function script() {
             button.onclick = onclick
         }
     })
-}})();
+}
