@@ -35,7 +35,7 @@ const messages = {
         'en': 'Show'
     }
 }
-!function(){(
+!function(){
 window.addEventListener('popstate', function () {
     setTimeout(script, timeout)
 })
@@ -138,4 +138,4 @@ function script() {
         }
     })
 }
-            )}();
+            }();
