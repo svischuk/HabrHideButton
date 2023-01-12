@@ -27,7 +27,7 @@ const messages = {
         'en': 'Show'
     }
 }
-!function(){
+
 window.addEventListener('popstate', function () {
     setTimeout(script, timeout)
 })
@@ -130,4 +130,3 @@ function script() {
         }
     })
 }
-            }();
