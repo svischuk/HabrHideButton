@@ -16,7 +16,7 @@
 // @grant        GM_xmlhttpRequest
 // ==/UserScript==
 
-const timeout = 10;
+const timeout = 50;
 const messages = {
     hide: {
         'ru': 'Скрыть',
