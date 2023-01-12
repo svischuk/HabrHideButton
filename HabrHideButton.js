@@ -7,6 +7,7 @@
 // @match        https://habr.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=habr.com
 // @downloadURL  https://github.com/svischuk/HabrHideButton/blob/main/HabrHideButton.js
+// @updateURL    https://github.com/svischuk/HabrHideButton/blob/main/HabrHideButton.js
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @grant        GM_deleteValue
