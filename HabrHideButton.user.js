@@ -15,6 +15,7 @@
 // @grant        GM_addStyle
 // @grant        GM_xmlhttpRequest
 // ==/UserScript==
+
 const timeout = 100;
 const messages = {
     hide: {
