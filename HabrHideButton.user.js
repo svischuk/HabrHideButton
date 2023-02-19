@@ -47,7 +47,8 @@ function script() {
     const articles = htmlElement.getElementsByClassName('tm-articles-list__item')
     Array.prototype.forEach.call(articles, function (article) {
         const articleSnippet = article.getElementsByClassName('tm-article-snippet').item(0)
-        const articleHubs = articleSnippet.getElementsByClassName('tm-article-snippet__hubs').item(0)
+        const articleHubs = articleSnippet.getElementsByClassName('tm-article-snippet__hubs-container').item(0)
+        const articleStats = articleSnippet.getElementsByClassName('tm-article-snippet__stats').item(0)
         const articleLabels = articleSnippet.getElementsByClassName('tm-article-snippet__labels').item(0)
         const articleBody = articleSnippet.getElementsByClassName('tm-article-body').item(0)
         const dataIcons = article.getElementsByClassName('tm-data-icons').item(0)
@@ -60,6 +61,9 @@ function script() {
         }
         if (articleHubs) {
             toToggleList.push(articleHubs.style)
+        }
+        if (articleStats) {
+            toToggleList.push(articleStats.style)
         }
         const button = document.createElement('div')
         button.classList.add('bookmarks-button__counter', 'bookmarks-button', 'tm-data-icons__item')
