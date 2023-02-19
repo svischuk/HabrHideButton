@@ -1,20 +1,3 @@
-// ==UserScript==
-// @name         Hide button for Habr.com
-// @namespace    https://github.com/svischuk
-// @version      0.11
-// @description  Help to hide posts
-// @author       svischuk
-// @match        https://habr.com/*
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=habr.com
-// @downloadURL  https://github.com/svischuk/HabrHideButton/raw/main/HabrHideButton.user.js
-// @updateURL    https://github.com/svischuk/HabrHideButton/raw/main/HabrHideButton.meta.js
-// @grant        GM_getValue
-// @grant        GM_setValue
-// @grant        GM_deleteValue
-// @grant        GM_listValues
-// @grant        GM_addStyle
-// @grant        GM_xmlhttpRequest
-// ==/UserScript==
 
 const timeout = 100;
 const messages = {
@@ -63,35 +46,35 @@ function script() {
             toToggleList.push(articleHubs.style)
         }
         if (articleStats) {
-            toToggleList.push(articleStats.style)
+             toToggleList.push(articleStats.style)
         }
         const button = document.createElement('div')
         button.classList.add('bookmarks-button__counter', 'bookmarks-button', 'tm-data-icons__item')
         dataIcons.lastChild.before(button)
 
-        const labelsMarginBottom = articleLabels ? parseInt(window.getComputedStyle(articleLabels, null).getPropertyValue('margin-bottom'), 10) + articleLabels.offsetHeight : 0
-        const hubsHeight = articleHubs ? articleHubs.offsetHeight : 0
-        const articleSnippetMarginBottom = parseInt(window.getComputedStyle(articleSnippet, null).getPropertyValue('margin-bottom'), 10)
-        const totalBodyMarginBottom = parseInt(window.getComputedStyle(articleBody, null).getPropertyValue('margin-bottom'), 10)
-        const hiddenBodyMarginBottom = totalBodyMarginBottom - articleSnippetMarginBottom + labelsMarginBottom + hubsHeight
+        // const labelsMarginBottom = articleLabels ? parseInt(window.getComputedStyle(articleLabels, null).getPropertyValue('margin-bottom'), 10) + articleLabels.offsetHeight : 0
+        // const hubsHeight = articleHubs ? articleHubs.offsetHeight : 0
+        // const articleSnippetMarginBottom = parseInt(window.getComputedStyle(articleSnippet, null).getPropertyValue('margin-bottom'), 10)
+        // const totalBodyMarginBottom = parseInt(window.getComputedStyle(articleBody, null).getPropertyValue('margin-bottom'), 10)
+        // const hiddenBodyMarginBottom = totalBodyMarginBottom - articleSnippetMarginBottom + labelsMarginBottom + hubsHeight
 
-        const heihtWithPadding = Math.ceil(parseFloat(window.getComputedStyle(articleBody, null).getPropertyValue('height')));
-        let height = heihtWithPadding - Math.ceil(parseFloat(window.getComputedStyle(articleBody, null).getPropertyValue('padding-top')));
-        articleBodyStyle.height = height + 'px'
-
-        const articleImages = articleBody.getElementsByTagName('img')
-        Array.prototype.forEach.call(articleImages, function (articleImage) {
-            if (!articleImage.offsetHeight) {
-                articleImage.addEventListener('load', function () {
-                    const articleBodyWidth = Math.ceil(parseFloat(window.getComputedStyle(articleBody, null).getPropertyValue('width')));
-                    const imageNaturalWidth = articleImage.naturalWidth
-                    const imageNaturalHeight = articleImage.naturalHeight
-                    const newImgHeight = Math.ceil(articleBodyWidth / imageNaturalWidth * imageNaturalHeight)
-                    height = (height + (imageNaturalWidth > articleBodyWidth ? newImgHeight : imageNaturalHeight))
-                    articleBodyStyle.height = height + 'px'
-                })
-            }
-        })
+        // const heihtWithPadding = Math.ceil(parseFloat(window.getComputedStyle(articleBody, null).getPropertyValue('height')));
+        // let height = heihtWithPadding - Math.ceil(parseFloat(window.getComputedStyle(articleBody, null).getPropertyValue('padding-top')));
+        // articleBodyStyle.height = height+ + 'px'
+        //
+        // const articleImages = articleBody.getElementsByTagName('img')
+        // Array.prototype.forEach.call(articleImages, function (articleImage) {
+        //     if (!articleImage.offsetHeight) {
+        //         articleImage.addEventListener('load', function () {
+        //             const articleBodyWidth = Math.ceil(parseFloat(window.getComputedStyle(articleBody, null).getPropertyValue('width')));
+        //             const imageNaturalWidth = articleImage.naturalWidth
+        //             const imageNaturalHeight = articleImage.naturalHeight
+        //             const newImgHeight = Math.ceil(articleBodyWidth / imageNaturalWidth * imageNaturalHeight)
+        //             height = (height + (imageNaturalWidth > articleBodyWidth ? newImgHeight : imageNaturalHeight))
+        //             articleBodyStyle.height = height + 'px'
+        //         })
+        //     }
+        // })
         hideOrShow()
         window.addEventListener('focus',hideOrShow)
         function hideOrShow(){
@@ -103,20 +86,24 @@ function script() {
         }
 
         function showOnclick() {
+            let scroll = parseFloat(window.getComputedStyle(article, null).getPropertyValue('height'));
             show()
-            window.scrollBy(0, parseInt(localStorage.getItem(id), 10))
+            scroll -= parseFloat(window.getComputedStyle(article, null).getPropertyValue('height'));
+            window.scrollBy(0, -scroll)
+            // window.scrollBy(0, parseInt(localStorage.getItem(id), 10))
             localStorage.removeItem(id)
         }
 
         function hideOnclick() {
-            const scroll = height + hiddenBodyMarginBottom
-            window.scrollBy(0, -scroll)
+            let scroll = parseFloat(window.getComputedStyle(article, null).getPropertyValue('height'));
             hide()
+            scroll -= parseFloat(window.getComputedStyle(article, null).getPropertyValue('height'));
+            window.scrollBy(0, -scroll)
             localStorage.setItem(id, scroll)
         }
 
         function show() {
-            toggle(hideOnclick, messages.hide[lang], 'block', '100%')
+            toggle(hideOnclick, messages.hide[lang], '', '100%')
         }
 
         function hide() {
