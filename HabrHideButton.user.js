@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hide button for Habr.com
 // @namespace    https://github.com/svischuk
-// @version      0.14
+// @version      0.15
 // @description  Help to hide posts
 // @author       svischuk
 // @match        https://habr.com/*
@@ -47,14 +47,18 @@ XMLHttpRequest.prototype.open = function (e, url) {
     origOpen.apply(this, arguments)
 }
 
+const htmlElement = document.getElementsByTagName('html').item(0);
+const lang = htmlElement.getAttribute('lang');
 function script() {
-    const htmlElement = document.getElementsByTagName('html').item(0);
-    const lang = htmlElement.getAttribute('lang');
     const articles = htmlElement.getElementsByClassName('tm-articles-list__item')
     Array.prototype.forEach.call(articles, function (article) {
         const articleSnippet = article.getElementsByClassName('tm-article-snippet').item(0)
 
-        const articleID = article.id
+        const articleID = article.id+'HB'
+        if(document.getElementById(articleID)!=null){
+            return
+        }
+        console.log(document.getElementById(articleID))
         const elementsToToggleList = []
         Array.prototype.forEach.call(classesToBlockNames, function (classToBlockName) {
             const classToBlock = article.getElementsByClassName(classToBlockName).item(0)
@@ -64,6 +68,7 @@ function script() {
         })
 
         const button = document.createElement('div')
+        button.id=articleID;
         button.classList.add('bookmarks-button__counter', 'bookmarks-button', 'tm-data-icons__item')
         const dataIcons = article.getElementsByClassName('tm-data-icons').item(0)
         dataIcons.lastChild.before(button)

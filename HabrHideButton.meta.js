@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hide button for Habr.com
 // @namespace    https://github.com/svischuk
-// @version      0.14
+// @version      0.15
 // @description  Help to hide posts
 // @author       svischuk
 // @match        https://habr.com/*
